@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/freddyelgato/GitOps.git # Cambia por tu URL
     targetRevision: main # Cambia a la rama correspondiente
-    path: manifests # Ruta donde estarán los archivos YAML
+    path: mainfests # Ruta donde estarán los archivos YAML
   destination:
     server: https://kubernetes.default.svc
     namespace: default
