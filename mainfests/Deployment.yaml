@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops-app
+  labels:
+    app: gitops-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gitops-app
+  template:
+    metadata:
+      labels:
+        app: gitops-app
+    spec:
+      containers:
+      - name: gitops-container
+        image: 2424833f/gitopsdocker:latest # Cambia por tu imagen Docker
+        ports:
+        - containerPort: 80
+        env:
+        - name: PORT
+          value: "80" # Puerto utilizado por tu aplicación
