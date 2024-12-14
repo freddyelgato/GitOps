@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitops-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/freddyelgato/GitOps.git # Cambia por tu URL
+    targetRevision: main # Cambia a la rama correspondiente
+    path: manifests # Ruta donde estarán los archivos YAML
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
