@@ -82,3 +82,4 @@ jobs:
                 sudo docker rm gitopsdocker || echo "No existing process found"
                 sudo docker pull 2424833f/gitopsdocker:latest
                 sudo docker run --network=host -d -p 80:80 --name gitopsdocker 2424833f/gitopsdocker:latest
+
