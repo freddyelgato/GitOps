@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: 'https://github.com/freddyelgato/GitOps'
     targetRevision: HEAD
-    path: manifests
+    path: mainfests
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
