@@ -1,10 +1,10 @@
 name: Production Deploy
- 
+
 on:
-    push:
-        branches:
-        - main
-    
+  push:
+    branches:
+      - main
+
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
@@ -30,56 +30,107 @@ jobs:
       - name: Deploy to EC2
         uses: easingthemes/ssh-deploy@main
         env:
-            SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-            REMOTE_HOST: ${{ secrets.HOST_DNS_PROD_1 }}
-            REMOTE_USER: ${{ secrets.EC2_USER }}
-            TARGET: ${{ secrets.TARGET_DIR }}
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS_PROD_1 }}
+          REMOTE_USER: ${{ secrets.EC2_USER }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+
+      - name: Install Docker on EC2 1
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DNS_PROD_1 }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Install Docker
+            sudo apt-get update
+            sudo apt-get install -y docker.io
+            sudo systemctl start docker
+            sudo systemctl enable docker
 
       - name: Executing remote ssh ec2 1
         uses: appleboy/ssh-action@master
         with:
-            host: ${{ secrets.HOST_DNS_PROD_1 }}
-            username: ${{ secrets.EC2_USER }}
-            key: ${{ secrets.EC2_SSH_KEY }}
-            script: |
-                sudo docker stop gitopsdocker || echo "No existing process found"
-                sudo docker rm gitopsdocker || echo "No existing process found"
-                sudo docker pull 2424833f/gitopsdocker:latest
-                sudo docker run --network=host -d -p 80:80 --name gitopsdocker 2424833f/gitopsdocker:latest
+          host: ${{ secrets.HOST_DNS_PROD_1 }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo docker stop gitopsdocker || echo "No existing process found"
+            sudo docker rm gitopsdocker || echo "No existing process found"
+            sudo docker pull 2424833f/gitopsdocker:latest
+            sudo docker run --network=host -d -p 80:80 --name gitopsdocker 2424833f/gitopsdocker:latest
 
       - name: Executing remote ssh commands ec2 2
         uses: appleboy/ssh-action@master
         with:
-            host: ${{ secrets.HOST_DNS_PROD_2 }}
-            username: ${{ secrets.EC2_USER }}
-            key: ${{ secrets.EC2_SSH_KEY }}
-            script: |
-                sudo docker stop gitopsdocker || echo "No existing process found"
-                sudo docker rm gitopsdocker || echo "No existing process found"
-                sudo docker pull 2424833f/gitopsdocker:latest
-                sudo docker run --network=host -d -p 80:80 --name gitopsdocker 2424833f/gitopsdocker:latest
-                
+          host: ${{ secrets.HOST_DNS_PROD_2 }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Install Docker
+            sudo apt-get update
+            sudo apt-get install -y docker.io
+            sudo systemctl start docker
+            sudo systemctl enable docker
+
+      - name: Executing remote ssh commands ec2 2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DNS_PROD_2 }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo docker stop gitopsdocker || echo "No existing process found"
+            sudo docker rm gitopsdocker || echo "No existing process found"
+            sudo docker pull 2424833f/gitopsdocker:latest
+            sudo docker run --network=host -d -p 80:80 --name gitopsdocker 2424833f/gitopsdocker:latest
+
       - name: Executing remote ssh commands ec2 3
         uses: appleboy/ssh-action@master
         with:
-            host: ${{ secrets.HOST_DNS_PROD_3 }}
-            username: ${{ secrets.EC2_USER }}
-            key: ${{ secrets.EC2_SSH_KEY }}
-            script: |
-                sudo docker stop gitopsdocker || echo "No existing process found"
-                sudo docker rm gitopsdocker || echo "No existing process found"
-                sudo docker pull 2424833f/gitopsdocker:latest
-                sudo docker run --network=host -d -p 80:80 --name gitopsdocker 2424833f/gitopsdocker:latest
+          host: ${{ secrets.HOST_DNS_PROD_3 }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Install Docker
+            sudo apt-get update
+            sudo apt-get install -y docker.io
+            sudo systemctl start docker
+            sudo systemctl enable docker
+
+      - name: Executing remote ssh commands ec2 3
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DNS_PROD_3 }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo docker stop gitopsdocker || echo "No existing process found"
+            sudo docker rm gitopsdocker || echo "No existing process found"
+            sudo docker pull 2424833f/gitopsdocker:latest
+            sudo docker run --network=host -d -p 80:80 --name gitopsdocker 2424833f/gitopsdocker:latest
 
       - name: Executing remote ssh commands ec2 4
         uses: appleboy/ssh-action@master
         with:
-            host: ${{ secrets.HOST_DNS_PROD_4 }}
-            username: ${{ secrets.EC2_USER }}
-            key: ${{ secrets.EC2_SSH_KEY }}
-            script: |
-                sudo docker stop gitopsdocker || echo "No existing process found"
-                sudo docker rm gitopsdocker || echo "No existing process found"
-                sudo docker pull 2424833f/gitopsdocker:latest
-                sudo docker run --network=host -d -p 80:80 --name gitopsdocker 2424833f/gitopsdocker:latest
+          host: ${{ secrets.HOST_DNS_PROD_4 }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Install Docker
+            sudo apt-get update
+            sudo apt-get install -y docker.io
+            sudo systemctl start docker
+            sudo systemctl enable docker
 
+      - name: Executing remote ssh commands ec2 4
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DNS_PROD_4 }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo docker stop gitopsdocker || echo "No existing process found"
+            sudo docker rm gitopsdocker || echo "No existing process found"
+            sudo docker pull 2424833f/gitopsdocker:latest
+            sudo docker run --network=host -d -p 80:80 --name gitopsdocker 2424833f/gitopsdocker:latest
