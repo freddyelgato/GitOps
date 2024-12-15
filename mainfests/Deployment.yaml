@@ -5,7 +5,8 @@ metadata:
   labels:
     app: gitops-app
 spec:
-  replicas: 3
+  replicas: 3  # Puedes ajustar el número de réplicas según sea necesario
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: gitops-app
@@ -16,9 +17,9 @@ spec:
     spec:
       containers:
       - name: gitops-container
-        image: 2424833f/gitopsdocker:latest # Cambia por tu imagen Docker
+        image: 2424833f/gitopsdocker:latest  # Imagen de tu Docker Hub
         ports:
-        - containerPort: 80
+        - containerPort: 80  # Puerto en el contenedor
         env:
         - name: PORT
-          value: "80" # Puerto utilizado por tu aplicación
+          value: "80"  # Puerto utilizado por tu aplicación
