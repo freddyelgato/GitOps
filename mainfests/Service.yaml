@@ -4,9 +4,9 @@ metadata:
   name: gitops-service
 spec:
   selector:
-    app: gitops-app
+    app: gitops-app  # Se seleccionan los pods que tengan esta etiqueta
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 80
-  type: LoadBalancer 
+    port: 80  # Puerto que expone el servicio
+    targetPort: 80  # Puerto al que se conecta dentro del contenedor
+  type: LoadBalancer  # O puedes cambiarlo a 'ClusterIP' si no necesitas un LoadBalancer
